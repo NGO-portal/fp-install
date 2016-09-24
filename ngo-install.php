@@ -1,0 +1,417 @@
+<?php
+/*
+* Plugin Name: NGO Install
+* Plugin URI: https://ngo-portal.org
+* Description: Installerar nödvändiga tillägg för Föreningsportalen och ser till att allt uppdateras. Ska vara aktiv på portalen, annars kommer inte föreningsportalens tillägg att uppdateras.
+* Version: 1.1.5
+* Author: George Bredberg
+* Author URI: https://datagaraget.se
+* Text Domain: ngo-install
+* Domain Path: /languages
+* License   GPL-2.0+
+* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/*
+ * This file register the required plugins.
+ * We are using down class for this plugin. Credit goes to them. Comments are left for you to be able to adapt this plugin to your needs.
+ *
+ * @see http://tgmpluginactivation.com/configuration/ for detailed documentation.
+ *
+ * @package    TGM-Plugin-Activation
+ * @version    2.6.1 for plugin NGO Install
+ * @author     Thomas Griffin, Gary Jones, Juliette Reinders Folmer
+ * @copyright  Copyright (c) 2011, Thomas Griffin
+ * @license    http://opensource.org/licenses/gpl-2.0.php GPL v2 or later
+ * @link       https://github.com/TGMPA/TGM-Plugin-Activation
+ */
+
+// Include the TGM_Plugin_Activation class.
+require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
+
+add_action( 'tgmpa_register', 'ngo_register_required_plugins' );
+
+/**
+ * Register the required plugins for this portal.
+ *
+ * In this example, we register five plugins:
+ * - one included with the TGMPA library
+ * - two from an external source, one from an arbitrary source, one from a GitHub repository
+ * - two from the .org repo, where one demonstrates the use of the `is_callable` argument
+ *
+ * The variables passed to the `tgmpa()` function should be:
+ * - an array of plugin arrays;
+ * - optionally a configuration array.
+ * If you are not changing anything in the configuration array, you can remove the array and remove the
+ * variable from the function call: `tgmpa( $plugins );`.
+ * In that case, the TGMPA default settings will be used.
+ *
+ * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
+ */
+function ngo_register_required_plugins() {
+	/*
+	 * Array of plugin arrays. Required keys are name and slug.
+	 * If the source is NOT from the .org repo, then source is also required.
+	 */
+	$plugins = array(
+
+/*		// This is an example of how to include a plugin bundled with a theme.
+		array(
+			'name'               => 'TGM Example Plugin', // The plugin name.
+			'slug'               => 'tgm-example-plugin', // The plugin slug (typically the folder name).
+			'source'             => dirname( __FILE__ ) . '/lib/plugins/tgm-example-plugin.zip', // The plugin source.
+			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'version'            => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
+			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
+			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
+		),
+
+		// This is an example of how to include a plugin from an arbitrary external source in your theme.
+		array(
+			'name'         => 'TGM New Media Plugin', // The plugin name.
+			'slug'         => 'tgm-new-media-plugin', // The plugin slug (typically the folder name).
+			'source'       => 'https://s3.amazonaws.com/tgm/tgm-new-media-plugin.zip', // The plugin source.
+			'required'     => true, // If false, the plugin is only 'recommended' instead of required.
+			'external_url' => 'https://github.com/thomasgriffin/New-Media-Image-Uploader', // If set, overrides default API URL and points to an external URL.
+		),
+*/
+		// These are plugins from our GitHub repository for NGO-portal
+		// Show ads on ngo-sites if and only if AdRotate is enabled on your network-site. Should be activated on your sites, NOT on the network site. Be careful and read the comments in the plugin.
+
+		array(
+			'name'      				=> 'NGO-Install',
+			'slug'      				=> 'ngo-install',
+			'source'						=> 'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/ngo-install.zip',
+			'required'					=> true,
+			'force_activation'	=> true,
+			'external_url'			=> 'https://github.com/NGO-portal/ngo-install',
+			),
+
+		array(
+			'name'      		=> 'AdRotate-NGO',
+			'slug'      		=> 'adrotate-ngo',
+			'source'				=> 'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/adrotate-ngo.zip',
+			'required'			=> false,
+			'external_url'	=> 'https://github.com/NGO-portal/adrotate-ngo',
+			),
+
+		// Deactivates unnecessary menu:s and widgets in backoffice
+		array(
+			'name'		      		=> 'NGO Menu deactivate',
+			'slug'    		  		=> 'ngo-menu-deactivate',
+			'source'						=> 'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/ngo-menu-deactivate.zip',
+			'required'					=> true,
+			'force_activation'	=> true,
+		),
+
+		// Install Wally plugin for Wally-theme. Should be downloaded from Wally-theme site, when they have a direct link to it
+		array(
+			'name'			=>	'Wally',
+			'slug'			=>	'wally-plugin',
+			'source'		=>	'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/wally-plugin.zip',
+			'required'		=> false,
+			),
+		
+		//////////////////////////////////////////////////////////////
+		// These are plugins that you find in Wordpress repository. //
+		//////////////////////////////////////////////////////////////
+
+		// NGO concert is a plugin to create events of the type "Music concert". Creates a custom post type concert with musician taxonomy,venues etc.
+
+		array(
+			'name'							=> 'NGO Branding',
+			'slug'							=> 'ngo-branding',
+			'required'					=> true,
+			'force_activation'	=> true,
+		),
+
+		array(
+			'name'							=> 'NGO concert',
+			'slug'							=> 'ngo-concert',
+			'required'					=> true,
+			'force_activation'	=> false,
+		),
+
+		// Show theater productions, custom post-type		
+		array(
+			'name'							=> 'NGO production',
+			'slug'							=> 'ngo-production',
+			'required'					=> true,
+			'force_activation'	=> false,
+		),
+		
+		// Show site events on network site. Should be activated *after* Event Organiser.
+		array(
+			'name'							=> 'Event Organiser NGO',
+			'slug'							=> 'event-organiser-ngo',
+			'required'					=> true,
+			'force_activation'	=> false,
+		),
+
+		// Shows a list of member NGO:s		
+		array(
+			'name'							=> 'NGO list',
+			'slug'							=> 'ngo-list',
+			'required'					=> true,
+			'force_activation'	=> true,
+		),
+
+		// AdRotate shows ads on your network site. Together with AdRotate-NGO it will show ad's also on your sites. Required to ease setup, it will be activated on the network site. In case you don't want ad's, disable it.
+
+		array(
+			'name'							=> 'AdRotate',
+			'slug'							=> 'adrotate',
+			'required'					=> true,
+			'force_activation'	=> true,
+		),
+
+		// Disable comments let's site administrator to turn off comments sitewide
+		array(
+			'name'							=> 'Disable Comments',
+			'slug'							=> 'disable-comments',
+			'required'					=> false,
+		),
+		
+		// Akismet is used to get rid of spam, requires registration (a key), but are free - Network activated.
+		// Akismet is not required since it's not needed if you disable comments network wide. If you allow comments, it SHOULD be enabled (for your own personal health..).
+		array(
+			'name'      => 'Akismet',
+			'slug'      => 'akismet',
+			'required'  => false,
+		),
+
+		// Used for contact forms - Network activated
+		array(
+			'name'      				=> 'Contact Form 7',
+			'slug'    				  => 'contact-form-7',
+			'required'				  => true,
+			'force_activation'	=> true,
+		),
+
+		// Used to create events - Network activated
+		array(
+			'name'							=> 'Event Organiser',
+			'slug'							=> 'event-organiser',
+			'required'					=> true,
+			'force_activation'	=> true,
+		),
+
+		// Helps you fight bruteforce attack by blocking login for the IP after it reaches maximum retries allowed. Network activated
+		array(
+			'name'      				=> 'Loginizer',
+			'slug'     					=> 'loginizer',
+			'required'  				=> true,
+			'force_activation'	=> true,
+		),
+
+		// Helps you copy a standardized template-site to a new
+		array(
+			'name'      => 'MultiSite Clone Duplicator',
+			'slug'      => 'multisite-clone-duplicator',
+			'required'  => false,
+		),
+
+		// Gives you better control of activated plugins on your entire network
+		array(
+			'name'      				=> 'Multisite Plugin Manager',
+			'slug'      				=> 'multisite-plugin-manager',
+			'required'  				=> true,
+			'force_activation'	=> true,
+		),
+
+		// Add images to taxonomies, used for ngo-production and ngo-concert
+		array(
+			'name'      => 'Category and Taxonomy Image',
+			'slug'      => 'wp-custom-taxonomy-image',
+			'required'  => true,
+		),
+
+		// Adds shortcodes that can be used to create accordion, tabs and more. Gives user a bit more flexibility.
+		array(
+			'name'      => 'Shortcodes Ultimate',
+			'slug'      => 'shortcodes-ultimate',
+			'required'  => false,
+		),
+
+		// Makes it easy to do domain mapping to your sites. Requires settings at your host to work.
+		array(
+			'name'      => 'WordPress MU Domain Mapping',
+			'slug'      => 'wordpress-mu-domain-mapping',
+			'required'  => false,
+		),
+
+		// Create messages that are shown in the backoffice of your site administrators
+		array(
+			'name'			=> 'Multisite Admin Notices',
+			'slug'			=> 'multisite-admin-notices',
+			'required'	=> false,
+		),
+
+		// Reorder posttypes by drag and drop
+		array(
+			'name'			=> 'Post Types Order',
+			'slug'			=> 'post-types-order',
+			'required'	=> false,
+		),
+
+		// Great plugin for SEO adaptation.
+		array(
+			'name'			=> 'Yoast SEO',
+			'slug'			=> 'wordpress-seo',
+			'required'	=> false,
+		),
+
+		// Speed up your web site  at no cost.
+		array(
+			'name'			=> 'WP Super Cache',
+			'slug'			=> 'wp-super-cache',
+			'required'	=> false,
+		),
+
+		// Change login URL. Check this one out a bit more properly.. cause issues with login
+/* 		array(
+			'name'			=> 'WPS Hide Login',
+			'slug'			=> 'wps-hide-login',
+			'required'	=> false,
+		),
+ */
+		// Hide plugins from other users, including admins (not super admin though)
+		array(
+			'name'			=>	'Hide Plugins',
+			'slug'			=>	'hide-plugins',
+			'required'		=> true,
+			),
+
+		// Use Google fonts to adapt your theme
+		array(
+			'name'			=>	'Typecase',
+			'slug'			=>	'typecase',
+			'required'		=> false,
+			),
+
+		// Gives the built in editor a bit more flexibility
+		array(
+			'name'			=>	'TinyMCE Advanced',
+			'slug'			=>	'tinymce-advanced',
+			'required'		=> false,
+			),
+			
+		// Used to put a site in maintenance-mode
+		array(
+			'name'			=>	'WP Maintenance Mode',
+			'slug'			=>	'wp-maintenance-mode',
+			'required'		=> true,
+			),			
+			
+		// This is an example of the use of 'is_callable' functionality. A user could - for instance -
+		// have WPSEO installed *or* WPSEO Premium. The slug would in that last case be different, i.e.
+		// 'wordpress-seo-premium'.
+		// By setting 'is_callable' to either a function from that plugin or a class method
+		// `array( 'class', 'method' )` similar to how you hook in to actions and filters, TGMPA can still
+		// recognize the plugin as being installed.
+
+		// array(
+			// 'name'        => 'WordPress SEO by Yoast',
+			// 'slug'        => 'wordpress-seo',
+			// 'is_callable' => 'wpseo_init',
+		// ),
+
+	);
+
+	 // Array of configuration settings. Amend each line as needed.
+	 // Only uncomment the strings in the config array if you want to customize the strings.
+
+	 $config = array(
+		'id'           => 'ngo-install',           // Unique ID for hashing notices for multiple instances of TGMPA.
+		'default_path' => '',                      	// Default absolute path to bundled plugins.
+		'menu'         => 'tgmpa-install-plugins', 	// Menu slug.
+		'parent_slug'  => 'plugins.php',            // Parent menu slug.
+		'capability'   => 'manage_options',    			// Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+		'has_notices'  => true,                    	// Show admin notices or not.
+		'dismissable'  => true,                    	// If false, a user cannot dismiss the nag message.
+		'dismiss_msg'  => '',                      	// If 'dismissable' is false, this message will be output at top of nag.
+		'is_automatic' => false,                   	// Automatically activate plugins after installation or not.
+		'message'      => 'Installera alla pluginer om du inte är säker på vad du gör. L&auml;s v&aring;r Wiki innan du aktiverar pluginer.', // Message to output right before the plugins table.
+
+		/*
+		'strings'      => array(
+			'page_title'                      => __( 'Install Required Plugins', 'ngo-install' ),
+			'menu_title'                      => __( 'Install Plugins', 'ngo-install' ),
+			/* translators: %s: plugin name. * /
+			'installing'                      => __( 'Installing Plugin: %s', 'ngo-install' ),
+			/* translators: %s: plugin name. * /
+			'updating'                        => __( 'Updating Plugin: %s', 'ngo-install' ),
+			'oops'                            => __( 'Something went wrong with the plugin API.', 'ngo-install' ),
+			'notice_can_install_required'     => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'NGO portal requires the following plugin: %1$s.',
+				'NGO portal requires the following plugins: %1$s.',
+				'ngo-install'
+			),
+			'notice_can_install_recommended'  => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'NGO portal recommends the following plugin: %1$s.',
+				'NGO portal recommends the following plugins: %1$s.',
+				'ngo-install'
+			),
+			'notice_ask_to_update'            => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'The following plugin needs to be updated to its latest version to ensure maximum compatibility with NGO portal: %1$s.',
+				'The following plugins need to be updated to their latest version to ensure maximum compatibility with NGO portal: %1$s.',
+				'ngo-install'
+			),
+			'notice_ask_to_update_maybe'      => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'There is an update available for: %1$s.',
+				'There are updates available for the following plugins: %1$s.',
+				'ngo-install'
+			),
+			'notice_can_activate_required'    => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'The following required plugin is currently inactive: %1$s.',
+				'The following required plugins are currently inactive: %1$s.',
+				'ngo-install'
+			),
+			'notice_can_activate_recommended' => _n_noop(
+				/* translators: 1: plugin name(s). * /
+				'The following recommended plugin is currently inactive: %1$s.',
+				'The following recommended plugins are currently inactive: %1$s.',
+				'ngo-install'
+			),
+			'install_link'                    => _n_noop(
+				'Begin installing plugin',
+				'Begin installing plugins',
+				'ngo-install'
+			),
+			'update_link' 					  => _n_noop(
+				'Begin updating plugin',
+				'Begin updating plugins',
+				'ngo-install'
+			),
+			'activate_link'                   => _n_noop(
+				'Begin activating plugin',
+				'Begin activating plugins',
+				'ngo-install'
+			),
+			'return'                          => __( 'Return to Required Plugins Installer', 'ngo-install' ),
+			'plugin_activated'                => __( 'Plugin activated successfully.', 'ngo-install' ),
+			'activated_successfully'          => __( 'The following plugin was activated successfully:', 'ngo-install' ),
+			/* translators: 1: plugin name. * /
+			'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', 'ngo-install' ),
+			/* translators: 1: plugin name. * /
+			'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for NGO portal. Please update the plugin.', 'ngo-install' ),
+			/* translators: 1: dashboard link. * /
+			'complete'                        => __( 'All plugins installed and activated successfully. %1$s', 'ngo-install' ),
+			'dismiss'                         => __( 'Dismiss this notice', 'ngo-install' ),
+			'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', 'ngo-install' ),
+			'contact_admin'                   => __( 'Please contact the administrator of this site for help.', 'ngo-install' ),
+
+			'nag_type'                        => 'notice-warning', // Determines admin notice type - can only be one of the typical WP notice classes, such as 'updated', 'update-nag', 'notice-warning', 'notice-info' or 'error'. Some of which may not work as expected in older WP versions.
+		),
+		*/
+	);
+
+	tgmpa( $plugins, $config );
+}
