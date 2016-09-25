@@ -333,7 +333,7 @@ function ngo_register_required_plugins() {
 		'dismissable'  => true,                    	// If false, a user cannot dismiss the nag message.
 		'dismiss_msg'  => '',                      	// If 'dismissable' is false, this message will be output at top of nag.
 		'is_automatic' => false,                   	// Automatically activate plugins after installation or not.
-		'message'      => 'Installera alla pluginer om du inte är säker på vad du gör. L&auml;s v&aring;r Wiki innan du aktiverar pluginer.', // Message to output right before the plugins table.
+		'message'      => 'Installera alla pluginer om du inte är säker på vad du gör. L&auml;s instruktionerna p&aring; https://ngo-portal.org innan du aktiverar pluginer.', // Message to output right before the plugins table.
 
 		/*
 		'strings'      => array(
