@@ -3,13 +3,13 @@
 * Plugin Name: NGO Install
 * Plugin URI: https://ngo-portal.org
 * Description: Installerar nödvändiga tillägg för Föreningsportalen och ser till att allt uppdateras. Ska vara aktiv på portalen, annars kommer inte föreningsportalens tillägg att uppdateras.
-* Version: 1.1.5
+* Version: 1.1.6
 * Author: George Bredberg
 * Author URI: https://datagaraget.se
 * Text Domain: ngo-install
 * Domain Path: /languages
-* License   GPL-2.0+
-* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+* License GPLv3
+* GitHub Plugin URI: https://github.com/NGO-portal/ngo-install
 */
 
 /*
@@ -113,7 +113,7 @@ function ngo_register_required_plugins() {
 			'source'		=>	'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/wally-plugin.zip',
 			'required'		=> false,
 			),
-		
+
 		//////////////////////////////////////////////////////////////
 		// These are plugins that you find in Wordpress repository. //
 		//////////////////////////////////////////////////////////////
@@ -134,14 +134,14 @@ function ngo_register_required_plugins() {
 			'force_activation'	=> false,
 		),
 
-		// Show theater productions, custom post-type		
+		// Show theater productions, custom post-type
 		array(
 			'name'							=> 'NGO production',
 			'slug'							=> 'ngo-production',
 			'required'					=> true,
 			'force_activation'	=> false,
 		),
-		
+
 		// Show site events on network site. Should be activated *after* Event Organiser.
 		array(
 			'name'							=> 'Event Organiser NGO',
@@ -150,7 +150,7 @@ function ngo_register_required_plugins() {
 			'force_activation'	=> false,
 		),
 
-		// Shows a list of member NGO:s		
+		// Shows a list of member NGO:s
 		array(
 			'name'							=> 'NGO list',
 			'slug'							=> 'ngo-list',
@@ -173,7 +173,7 @@ function ngo_register_required_plugins() {
 			'slug'							=> 'disable-comments',
 			'required'					=> false,
 		),
-		
+
 		// Akismet is used to get rid of spam, requires registration (a key), but are free - Network activated.
 		// Akismet is not required since it's not needed if you disable comments network wide. If you allow comments, it SHOULD be enabled (for your own personal health..).
 		array(
@@ -297,14 +297,14 @@ function ngo_register_required_plugins() {
 			'slug'			=>	'tinymce-advanced',
 			'required'		=> false,
 			),
-			
+
 		// Used to put a site in maintenance-mode
 		array(
 			'name'			=>	'WP Maintenance Mode',
 			'slug'			=>	'wp-maintenance-mode',
 			'required'		=> true,
-			),			
-			
+			),
+
 		// This is an example of the use of 'is_callable' functionality. A user could - for instance -
 		// have WPSEO installed *or* WPSEO Premium. The slug would in that last case be different, i.e.
 		// 'wordpress-seo-premium'.
