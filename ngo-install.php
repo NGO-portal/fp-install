@@ -3,12 +3,13 @@
 * Plugin Name: NGO Install
 * Plugin URI: https://ngo-portal.org
 * Description: Installerar nödvändiga tillägg för Föreningsportalen och ser till att allt uppdateras. Ska vara aktiv på portalen, annars kommer inte föreningsportalens tillägg att uppdateras.
-* Version: 1.1.6
+* Version: 1.2
 * Author: George Bredberg
 * Author URI: https://datagaraget.se
 * Text Domain: ngo-install
 * Domain Path: /languages
 * License GPLv3
+* License URI: http://www.gnu.org/licenses/gpl-3.0.html
 * GitHub Plugin URI: https://github.com/NGO-portal/ngo-install
 */
 
@@ -76,25 +77,35 @@ function ngo_register_required_plugins() {
 			'required'     => true, // If false, the plugin is only 'recommended' instead of required.
 			'external_url' => 'https://github.com/thomasgriffin/New-Media-Image-Uploader', // If set, overrides default API URL and points to an external URL.
 		),
+
+		// This is an example of how to include a plugin from a GitHub repository in your theme.
+		// This presumes that the plugin code is based in the root of the GitHub repository
+		// and not in a subdirectory ('/src') of the repository.
+		array(
+			'name'      => 'Adminbar Link Comments to Pending',
+			'slug'      => 'adminbar-link-comments-to-pending',
+			'source'    => 'https://github.com/jrfnl/WP-adminbar-comments-to-pending/archive/master.zip',
+		),
 */
+
 		// These are plugins from our GitHub repository for NGO-portal
 		// Show ads on ngo-sites if and only if AdRotate is enabled on your network-site. Should be activated on your sites, NOT on the network site. Be careful and read the comments in the plugin.
 
 		array(
 			'name'      				=> 'NGO-Install',
 			'slug'      				=> 'ngo-install',
-			'source'						=> 'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/ngo-install.zip',
+			'source'						=> 'https://github.com/NGO-portal/ngo-install/releases/latest',
 			'required'					=> true,
 			'force_activation'	=> true,
-			'external_url'			=> 'https://github.com/NGO-portal/ngo-install',
+			'external_url'			=> 'https://ngo-portal.org/installera/egna-tillagg/ngo-install/',
 			),
 
 		array(
 			'name'      		=> 'AdRotate-NGO',
 			'slug'      		=> 'adrotate-ngo',
-			'source'				=> 'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/adrotate-ngo.zip',
+			'source'				=> 'https://github.com/NGO-portal/adrotate-ngo/releases/latest',
 			'required'			=> false,
-			'external_url'	=> 'https://github.com/NGO-portal/adrotate-ngo',
+			'external_url'	=> 'https://ngo-portal.org/installera/egna-tillagg/adrotate-ngo/',
 			),
 
 		// Deactivates unnecessary menu:s and widgets in backoffice
