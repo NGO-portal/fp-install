@@ -3,7 +3,7 @@
 * Plugin Name: NGO Install
 * Plugin URI: https://ngo-portal.org
 * Description: Installerar nödvändiga tillägg för Föreningsportalen och ser till att allt uppdateras. Ska vara aktiv på portalen, annars kommer inte föreningsportalens tillägg att uppdateras.
-* Version: 1.2
+* Version: 1.2.1
 * Author: George Bredberg
 * Author URI: https://datagaraget.se
 * Text Domain: ngo-install
