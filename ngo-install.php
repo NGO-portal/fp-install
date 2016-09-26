@@ -94,7 +94,7 @@ function ngo_register_required_plugins() {
 		array(
 			'name'      				=> 'NGO-Install',
 			'slug'      				=> 'ngo-install',
-			'source'						=> 'https://github.com/NGO-portal/ngo-install/releases/latest',
+			'source'						=> 'https://github.com/NGO-portal/ngo-install/archive/master.zip',
 			'required'					=> true,
 			'force_activation'	=> true,
 			'external_url'			=> 'https://ngo-portal.org/installera/egna-tillagg/ngo-install/',
@@ -103,7 +103,7 @@ function ngo_register_required_plugins() {
 		array(
 			'name'      		=> 'AdRotate-NGO',
 			'slug'      		=> 'adrotate-ngo',
-			'source'				=> 'https://github.com/NGO-portal/adrotate-ngo/releases/latest',
+			'source'				=> 'https://github.com/NGO-portal/adrotate-ngo/archive/master.zip',
 			'required'			=> false,
 			'external_url'	=> 'https://ngo-portal.org/installera/egna-tillagg/adrotate-ngo/',
 			),
@@ -122,6 +122,13 @@ function ngo_register_required_plugins() {
 			'name'			=>	'Wally',
 			'slug'			=>	'wally-plugin',
 			'source'		=>	'https://dl.dropboxusercontent.com/u/13546127/ngo_archive/wally-plugin.zip',
+			'required'		=> false,
+			),
+
+		array(
+			'name'			=>	'Github Updater',
+			'slug'			=>	'github-updater',
+			'source'		=>	'https://github.com/joje47/github-updater/archive/master.zip',
 			'required'		=> false,
 			),
 
